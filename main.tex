@@ -1,0 +1,45 @@
+\input{begin}
+
+\setlength{\baselineskip}{13.0pt}
+
+%タイトルとか
+\title{タイトル}
+\etitle{Title}
+
+\author{名前1$^\dagger$ \and 名前2$^\dagger$ \and 名前3$^\dagger$}
+
+\eauthor{
+Name1, Name2, Name3}
+
+\keywords{A, B, C}
+
+\begin{abstract}
+要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約要約
+\end{abstract}
+
+\maketitle
+
+\begingroup  \makeatletter
+    \def\@makefntext#1{\parindent=\z@#1}%
+    \footnotetext{%
+\setlength{\tabcolsep}{1pt}
+\begin{tabular}{rrll}
+${}^{\dagger}$ && 所属している団体名\\
+\end{tabular}\\
+    }%
+\endgroup
+
+%以下では再度/includeや/documentclassを読み込まないようにする
+%各ファイルでも、統合するこのtexでもどちらでも正常にビルドできるようにするための措置
+\renewcommand{\include}[1]{}
+\renewcommand{\tentativeinput}[1]{}
+\renewcommand\documentclass[2][]{}
+
+\setcounter{page}{1}
+\input{Introduction}
+\input{Methods}
+\input{Conclusion}
+\input{Acknowledgements}
+\input{Bibliography}
+
+\input{end}

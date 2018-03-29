@@ -1,0 +1,138 @@
+% \documentclass[a4j,10pt,twocolumn,oneside,notitlepage,final]{jarticle}
+
+% \usepackage[a4paper]{geometry} %余白の調整
+\documentclass[twocolumn,a4paper,dvips]{jjspe}
+% \usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{times}
+\usepackage{type1cm}
+\usepackage{url}
+\usepackage[dvipdfmx]{graphicx, color}
+\usepackage{letltxmacro}
+\usepackage{listings,jlisting}
+\usepackage{hhline}
+\usepackage{here}
+% "ont shape `JY1/mc/m/it' undefined"というエラー回避
+\usepackage{jtygm}
+% 論文の歳暮のページの高さを揃える
+\usepackage{flushend}
+\graphicspath{%
+{./img/}%
+{./png/}%
+}
+
+%各TeXファイルでincludeの代わりに使う．
+%includeだと先頭に改ページが入ってしまう
+\newcommand{\tentativeinput}[1]{
+  \input{#1}
+}
+
+% includegraphicsで、幅を統一する
+\LetLtxMacro{\OldIncludegraphics}{\includegraphics}
+\renewcommand{\includegraphics}[5][0.2]{
+\begin{figure}[#2]
+  \begin{center}
+    \OldIncludegraphics[scale=#1]{#3}
+  \end{center}
+  \caption{#4}
+  \label{fig:#5}
+\end{figure}
+}
+
+% \refで「図x」と表示されるようにする。オプションで接頭辞(?)を設定すると、「表x」とかに変更できる。
+\LetLtxMacro{\OldRef}{\ref}
+\renewcommand{\ref}[2][Fig.]{#1\OldRef{#2}}
+
+%行間調整できる表内改行
+\newcommand{\bettershortstack}[4][c]{%
+  \renewcommand{\arraystretch}{#2}
+  \begin{tabular}[b]{@{}#1@{}}
+  #4
+  \end{tabular}%
+  \renewcommand{\arraystretch}{#3}
+}
+
+% ページの上下に出力される図と図の間のスペース
+% \setlength\floatsep{5pt} %dblfloatsep
+
+% 参考文献のフォントを小さくする
+% \makeatletter
+%   \renewenvironment{thebibliography}[1]{%
+%     \global\let\presectionname\relax
+%     \global\let\postsectionname\relax
+%     \section*{\refname}\@mkboth{\refname}{\refname}%
+%     \list{\@biblabel{\@arabic\c@enumiv}}%
+%           {\settowidth\labelwidth{\@biblabel{#1}}%
+%           \leftmargin\labelwidth
+%           \advance\leftmargin\labelsep
+%           % 文字サイズ？
+%           \setlength\baselineskip{9pt}
+%           % アイテム間のマージン
+%           \setlength\itemsep{-0.4zh}
+%           \@openbib@code
+%           \usecounter{enumiv}%
+%           \let\p@enumiv\@empty
+%           \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+%     \sloppy
+%     \clubpenalty4000
+%     \@clubpenalty\clubpenalty
+%     \widowpenalty4000%
+%     \sfcode`\.\@m}
+%     {\def\@noitemerr
+%       {\@latex@warning{Empty `thebibliography' environment}}%
+%     \endlist}
+% \makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ソースコード表示用の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{myComment}{rgb}{0.0, 0.6, 0.0}       % コメントスタイル用の色設定
+\definecolor{myKeyWord}{cmyk}{1.0, 0.0, 0.0, 0.3} % キーワードスタイル用の色設定
+\definecolor{myString}{cmyk}{0.0, 1.0, 0.0, 0.0}  % 文字列スタイル用の色設定
+
+% テキスト用（デフォルト）
+\lstdefinestyle{customText}{
+  backgroundcolor  = {\color{white}},               % 背景色
+  basicstyle       = {\footnotesize},               % コードの基本書式
+  breaklines       = {true},                        % 途中で改行するかどうか
+  commentstyle     = {\itshape  \color{myComment}}, % コメントのスタイル
+  captionpos       = {b},                           % キャプションの位置
+  frame            = {shadowbox},                   % フレームの書式
+  framesep         = {4pt},                         % ステップ幅
+  keywordstyle     = {\bfseries \color{myKeyWord}}, % キーワードのスタイル
+  lineskip         = {-0.5ex},                      % 行送り
+  numbers          = {left},                        % 行番号の位置
+  numberstyle      = {\footnotesize},               % 行番号のスタイル
+  numbersep        = {1zw},                         % コードから行番号までの距離
+  showstringspaces = {false},                       % 文字列中における半角スペースの表示の有無
+  sensitive        = {true},                        % 忘れた
+  stepnumber       = {1},                           % 行番号のステップ幅
+  stringstyle      = {\ttfamily \color{myString}},  % 文字書式のスタイル
+  tabsize          = {2},                           % タブ幅
+  xleftmargin      = {2zw},                         % 左側の余白
+  xrightmargin     = {2zw}                          % 右側の余白
+}
+% C 言語用
+\lstdefinestyle{C}{
+  language         = {C},
+  style            = {customText},
+  morecomment      = [l]{//},                       % 行コメント
+  morecomment      = [s]{/*}{*/},                   % 複数行コメント
+  morecomment      = [n]{/*}{*/},                   % ネスト可能な複数行コメント
+  morestring       = [b]{"}
+}
+\lstdefinestyle{python}{
+  language         = {Python},
+  style            = {customText},
+  breakindent = 10pt,
+  classoffset = 0,
+  morecomment      = [l]{//},                       % 行コメント
+  morecomment      = [s]{"""}{"""},                   % 複数行コメント
+  morecomment      = [n]{/*}{*/},                   % ネスト可能な複数行コメント
+}
+
+\lstset{escapechar = , style = {customText}}
+
+\newcommand{\includeCode}[3][C]{\lstinputlisting[caption = {#3}, label = {src:#3}, escapechar = , style = #1]{#2}}
+
+\begin{document}
