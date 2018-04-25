@@ -42,6 +42,23 @@
       \item 箇条書き3
     \end{itemize}
 
+    表はこんな感じ(\ref[Table]{tab:exp})．
+
+    \newcommand*{\narrowLS}{%行間ゼロ
+      \setlength{\baselineskip}{0cm}}
+    \begin{table}[tbp]
+      \begin{center}
+        \caption{表の例}
+        \label{tab:exp}
+        \begin{tabular}{|p{3cm}|p{3cm}|} \hline
+           & それ \\ \hhline{|=|=|}
+          セル & セルセルセルセルセルセルセルセル \\ \hline
+          セル & セル \\ \hline
+          \narrowLS {\footnotesize セル内で改行したいときは、 \newline narrowLSっていうコマンドを作成して使うと行間をいい感じに狭くできる} & セル \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{table}
+
   % subsection image (end)
 
 % section 提案手法 (end)
