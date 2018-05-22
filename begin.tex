@@ -1,33 +1,32 @@
-% \documentclass[a4j,10pt,twocolumn,oneside,notitlepage,final]{jarticle}
+\documentclass[a4j,12pt,onecolumn,oneside,final]{jsarticle} % 一段組
+% \documentclass[twocolumn,a4paper,dvips]{jjspe}              % 二段組
 
-% \usepackage[a4paper]{geometry} %余白の調整
-\documentclass[twocolumn,a4paper,dvips]{jjspe}
-% \usepackage{graphicx}
-\usepackage{amsmath,amssymb}
-\usepackage{times}
-\usepackage{type1cm}
-\usepackage{url}
-\usepackage[dvipdfmx]{graphicx, color}
-\usepackage{letltxmacro}
-\usepackage{listings,jlisting}
-\usepackage{hhline}
-\usepackage{here}
-% "ont shape `JY1/mc/m/it' undefined"というエラー回避
-\usepackage{jtygm}
-% 論文の歳暮のページの高さを揃える
-\usepackage{flushend}
-\graphicspath{%
-{./img/}%
-{./png/}%
+% \usepackage[a4paper]{geometry}         % 余白の調整
+\usepackage{type1cm}                   % 文字の大きさを数値で指定できるようにする
+\usepackage{url}                       % URLを綺麗に出力する
+\usepackage[dvipdfmx]{graphicx, color} % 図形も含めてPDF出力するのに必要
+\usepackage{letltxmacro}               % \includegraphicsを定義するのに必要
+\usepackage{listings,jlisting}         % ソースコードを記述するのに必要
+\usepackage{hhline}                    % 表で(隙間の開かない)横二重線を用いる時に必要
+% \usepackage{here}                      % 図の挿入箇所を強制的に「ここ！」と指定できる
+\usepackage{jtygm}                     % "ont shape `JY1/mc/m/it' undefined"というエラー回避
+\usepackage{flushend}                  % 論文の最後のページの高さを揃える
+
+% 画像の参照先をここに追加する。外部にあるフォルダを参照するときは、シンボリックリンクを作業フォルダに貼るといい。
+% エイリアスではなくシンボリックリンクである点に注意。
+\graphicspath{
+  {./img/}
+  {./png/}
 }
 
-%各TeXファイルでincludeの代わりに使う．
+%各TeXファイルでincludeの代わりに使う。
 %includeだと先頭に改ページが入ってしまう
 \newcommand{\tentativeinput}[1]{
   \input{#1}
 }
 
-% includegraphicsで、幅を統一する
+% includegraphicsを簡単に記述するためのマクロ
+% 引数で画像の横幅の倍率を指定できる
 \LetLtxMacro{\OldIncludegraphics}{\includegraphics}
 \renewcommand{\includegraphics}[5][0.2]{
 \begin{figure}[#2]
