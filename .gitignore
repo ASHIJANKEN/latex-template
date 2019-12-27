@@ -7,3 +7,7 @@
 *.fdb_latexmk
 *.toc
 *.bb
+*.bbl
+*-blx.bib
+*.blg
+*.xml

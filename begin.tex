@@ -11,6 +11,7 @@
 % \usepackage{here}                      % 図の挿入箇所を強制的に「ここ！」と指定できる
 \usepackage{jtygm}                     % "ont shape `JY1/mc/m/it' undefined"というエラー回避
 \usepackage{flushend}                  % 論文の最後のページの高さを揃える
+\usepackage[backend=bibtex, style=numeric]{biblatex}
 
 % 画像の参照先をここに追加する。外部にあるフォルダを参照するときは、シンボリックリンクを作業フォルダに貼るといい。
 % エイリアスではなくシンボリックリンクである点に注意。
@@ -18,6 +19,9 @@
   {./img/}
   {./png/}
 }
+
+% 参考文献
+\addbibresource{refs.bib}
 
 %各TeXファイルでincludeの代わりに使う。
 %includeだと先頭に改ページが入ってしまう
